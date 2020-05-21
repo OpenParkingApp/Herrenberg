@@ -4,6 +4,6 @@ import Herrenberg
 
 final class OpenParkingHerrenbergTests: XCTestCase {
     func testDatasource() throws {
-        assert(datasource: Herrenberg())
+        validate(datasource: Herrenberg())
     }
 }

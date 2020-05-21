@@ -6,9 +6,9 @@ enum ParkAPI {
         let dataSource: URL
         let lastDownloaded: Date
         let lastUpdated: Date
-        let lots: [Response.Lot]
+        let lots: [Response.ParkAPILot]
 
-        struct Lot: Decodable {
+        struct ParkAPILot: Decodable {
             let lotType: LotType
             let address: String
             let name: String
@@ -29,7 +29,7 @@ enum ParkAPI {
                 case camper = "Wohnmobilparkplatz"
                 case carpool = "Park-Carpool"
 
-                var opRepr: Datasource.Lot.LotType {
+                var opRepr: Lot.LotType {
                     switch self {
                     case .parkplatz:
                         return .lot
@@ -47,7 +47,7 @@ enum ParkAPI {
             enum State: String, Decodable {
                 case open, closed, nodata, unknown
 
-                var opRepr: Datasource.Lot.State {
+                var opRepr: Lot.State {
                     switch self {
                     case .open:
                         return .open
@@ -79,11 +79,12 @@ enum ParkAPI {
 
         return DataPoint(timestamp: response.lastDownloaded, lots: response.lots.compactMap {
             guard let freeCount = $0.free else {
-                warn("No count of free lots available, dropping this datapoint.", lotName: $0.name)
+                warning("No count of free lots available, there apparently isn't any dynamic data available yet.", lotName: $0.name)
                 return nil
             }
 
-            return .success(Lot(dataAge: response.lastUpdated,
+            return LotResult.success(Lot(
+                dataAge: response.lastUpdated,
                 name: $0.name,
                 coordinates: .init(lat: $0.coords.lat, lng: $0.coords.lng),
                 city: "Herrenberg",
@@ -95,8 +96,8 @@ enum ParkAPI {
                 type: $0.lotType.opRepr,
                 detailURL: $0.url,
                 imageURL: nil,
-                pricing: $0.fees.map { Lot.Pricing.info($0) },
-                openingHours: $0.openingHours.map { Lot.OpeningHours.info($0) },
+                pricing: $0.fees.map { .init(description: $0) },
+                openingHours: $0.openingHours.map { .init(times: $0) },
                 additionalInformation: nil)
             )
         })
