@@ -1,5 +1,5 @@
 import Foundation
-import OpenParkingBase
+import Datasource
 
 enum ParkAPI {
     private struct Response: Decodable {
@@ -29,7 +29,7 @@ enum ParkAPI {
                 case camper = "Wohnmobilparkplatz"
                 case carpool = "Park-Carpool"
 
-                var opRepr: OpenParkingBase.Lot.LotType {
+                var opRepr: Datasource.Lot.LotType {
                     switch self {
                     case .parkplatz:
                         return .lot
@@ -47,7 +47,7 @@ enum ParkAPI {
             enum State: String, Decodable {
                 case open, closed, nodata, unknown
 
-                var opRepr: OpenParkingBase.Lot.State {
+                var opRepr: Datasource.Lot.State {
                     switch self {
                     case .open:
                         return .open
@@ -95,8 +95,8 @@ enum ParkAPI {
                 type: $0.lotType.opRepr,
                 detailURL: $0.url,
                 imageURL: nil,
-                pricing: $0.fees.map { .init(url: nil, pricing: $0) },
-                openingHours: $0.openingHours.map { .init(url: nil, times: $0) },
+                pricing: $0.fees.map { Lot.Pricing.info($0) },
+                openingHours: $0.openingHours.map { Lot.OpeningHours.info($0) },
                 additionalInformation: nil)
             )
         })

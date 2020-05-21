@@ -1,6 +1,6 @@
 import XCTest
-import OpenParkingTests
-import OpenParkingHerrenberg
+import DatasourceValidation
+import Herrenberg
 
 final class OpenParkingHerrenbergTests: XCTestCase {
     func testDatasource() throws {

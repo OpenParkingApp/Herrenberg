@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "Datasource",
+        "repositoryURL": "https://github.com/OpenParkingApp/Datasource.git",
+        "state": {
+          "branch": null,
+          "revision": "55f82e75c8f58aa27008819e17493788981c9579",
+          "version": "0.8.1"
+        }
+      },
+      {
         "package": "HTMLString",
         "repositoryURL": "https://github.com/alexaubry/HTMLString",
         "state": {
@@ -20,12 +29,12 @@
         }
       },
       {
-        "package": "OpenParkingBase",
-        "repositoryURL": "https://github.com/OpenParkingApp/OpenParkingBase.git",
+        "package": "Regex",
+        "repositoryURL": "https://github.com/sharplet/Regex",
         "state": {
           "branch": null,
-          "revision": "e44a0064b2b870e29b41d64a7e961b7694cfb528",
-          "version": "0.5.1"
+          "revision": "76c2b73d4281d77fc3118391877efd1bf972f515",
+          "version": "2.1.1"
         }
       }
     ]

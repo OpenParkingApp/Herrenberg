@@ -1,10 +1,10 @@
 import Foundation
-import OpenParkingBase
+import Datasource
 
 public class Herrenberg: Datasource {
     public let name = "Herrenberg"
     public let slug = "herrenberg"
-    public let infoUrl = URL(string: "https://stadtnavi.de")!
+    public let infoURL = URL(string: "https://stadtnavi.de")!
 
     public init() {}
 
